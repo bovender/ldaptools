@@ -50,10 +50,16 @@ if options[:prefix]
   end
 end
 
-print_delimiter = ARGV.length > 1 && !options[:prefix]
+def print_delimiter(file_name, options)
+  if ARGV.length > 1 && !options[:prefix]
+    puts "# " + "-" * 70
+    puts "# File: #{file_name}"
+    puts "# " + "-" * 70
+  end
+end
 
 ARGV.each do |file_name|
-  puts "# File: #{file}" if print_delimiter
+  print_delimiter file_name, options
   text = ''
   if options[:prefix]
     prefix_length = max_prefix_length - file_name.length
@@ -71,5 +77,4 @@ ARGV.each do |file_name|
     end
   end
   puts text.lstrip
-  puts "# " + "-" * 70 if print_delimiter
 end
